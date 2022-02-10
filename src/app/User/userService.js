@@ -12,7 +12,15 @@ const crypto = require("crypto");
 const {connect} = require("http2");
 
 // Service: Create, Update, Delete 비즈니스 로직 처리
+exports.postUser = async function (name, email, password, regionId, mailAgree, smsAgree, vip, photoUrl, phoneNumber){
+    const params = [name, email, password, regionId, mailAgree, smsAgree, vip, photoUrl, phoneNumber];
 
+    const connection = await pool.getConnection(async (conn) => conn);
+    const result = await userDao.postUser(connection, params);
+    console.log(`추가된 회원 : ${result[0].insertId}`);
+    connection.release();
+    return response(baseResponse.SUCCESS);
+}
 exports.createUser = async function (email, password, phoneNumber) {
     try {
         // 이메일 중복 확인

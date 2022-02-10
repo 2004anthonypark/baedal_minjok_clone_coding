@@ -12,14 +12,14 @@ module.exports = function(app){
 
     // 1. 유저 생성 (회원가입) API
     // app.post('/app/user', user.postUsers);
-
+    app.post('/app/post-user',user.postUser);
     // 2. 유저 조회 API (+ 검색)
     app.get('/app/user',user.getUsers);
 
     // 3. 특정 유저 조회 API
     // app.get('/app/user/:userId', jwtMiddleware,user.getUserById);
 
-
+    app.get('/app/user/:userId', user.getUserById);
     // // TODO: After 로그인 인증 방법 (JWT)
     // // 로그인 하기 API (JWT 생성)
     // app.post('/app/login', user.login);

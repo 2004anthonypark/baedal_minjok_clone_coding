@@ -47,28 +47,11 @@ module.exports = {
     DB_ERROR : { "isSuccess": false, "code": 4000, "message": "데이터 베이스 에러"},
     SERVER_ERROR : { "isSuccess": false, "code": 4001, "message": "서버 에러"},
 
-    CITY_ID_WRONG : { "isSuccess" : false, "code":5001,"message": "잘못된 cityid입니다."},
-    REGION_ID_WRONG : { "isSuccess" : false, "code":5002,"message": "잘못된 regionid입니다."},
+    WRONG_USER_ID: {"isSuccess" : false, "code": 5000, "message": "유저아이디 에러"},
 
-    HOTEL_NOT_EXIST :  { "isSuccess" : false, "code":6000,"message": "존재하는 숙박시설이 없습니다."},
-    ROOM_ID_NOT_EXIST : { "isSuccess" : false, "code":6001,"message": "존재하지 않는 방id입니다."},
-    NOT_KEYWORD : { "isSuccess" : false, "code":6002,"message": "검색할 keyword를 확인해 주세요."},
-    QUERYSTRING_NOT_EXIST : { "isSuccess" : false, "code":6003,"message": "쿼리스트링이 적절하지 않습니다."},
-    AVAILABLE_HOTEL_NOT_EXIST : { "isSuccess" : false, "code":6004,"message": "가능한 숙박시설이 없습니다."},
-    REDUNDANT_BODY :  { "isSuccess" : false, "code":6005,"message": "Body가 적절하지 않습니다."},
+    WRONG_LENGTH_PASSWORD: {"isSuccess" : false, "code": 5001, "message": "패스워드 길이 에러"},
 
-    SEARCH_NOT_EXIST :  { "isSuccess" : false, "code":7001,"message": "잘못된 SEARCH ID"},
-    USER_SEARCH_HOTEL_EMPTY : { "isSuccess" : false, "code":7002,"message": "호텔을 검색한 적 없는 user라 추천할 것이 없습니다."},
-    REDUNDANT_POINT_USE : { "isSuccess" : false, "code":7003,"message": "잔여 포인트가 넉넉치 않습니다."},
-    ALREADY_EXIST_REVIEW : { "isSuccess" : false, "code":7004,"message": "이미 등록된 리뷰가 있습니다."},
-    RESERVATION_NOT_EXIST : { "isSuccess" : false, "code":7005,"message": "잘못된 예약id입니다."},
-    REVIEW_NOT_EXIST : { "isSuccess" : false, "code":7006,"message": "리뷰가 없습니다."},
-    REVIEW_PHOTO_NOT_EXIST : { "isSuccess" : false, "code":7007,"message": "리뷰 사진이 없습니다."},
-    REDUNDANT_COUPON : { "isSuccess" : false, "code":7008,"message": "유효한 쿠폰 코드가 아닙니다."},
-    ALREADY_REGISTER_COUPON : { "isSuccess" : false, "code":7009,"message": "이미 등록되어 있습니다."},
-    CANNOT_USE_COUPON : { "isSuccess" : false, "code":7010,"message": "사용불가 쿠폰입니다."},
-    ALREADY_FULL_ROOM : { "isSuccess" : false, "code":7011,"message": "해당 날짜에 이미 방이 꽉차있습니다."},
-    PRICE_FINAL_NOT_MATCH : { "isSuccess" : false, "code":7012,"message": "finalPrice와 price의 차이가 쿠폰적용 내역과 포인트 사용 내역의 합과 다릅니다."},
-    KEEP_NOT_EXIST : { "isSuccess" : false, "code":7013,"message": "해당 유저는 찜 호텔이 존재하지 않거나 해당 날짜에 맞는 호텔이 존재하지 않습니다."},
-    KAKAO_FAIL :  { "isSuccess" : false, "code":7014,"message": "카카오 로그인과 연동된 해당 계정이 없습니다."},
+    WRONG_REGEX_EMAIL:{"isSuccess" : false, "code": 5002, "message": "이메일 형식 에러"},
+
+    DUP_EMAIL: {"isSuccess" : false, "code": 5003, "message": "이미 있는 이메일"},
 }

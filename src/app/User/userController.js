@@ -19,6 +19,7 @@ var client = new twilio(accountSid,authToken);
 var CryptoJS = require("crypto-js");
 var SHA256 = require("crypto-js/sha256");
 var Base64 = require("crypto-js/enc-base64");
+const { SUCCESS } = require("../../../config/baseResponseStatus");
 
 
 /**
@@ -46,6 +47,44 @@ var Base64 = require("crypto-js/enc-base64");
             return res.send(response(baseResponse.SUCCESS, userListByEmail));
     }
 };
+
+exports.getUserById = async function (req, res){
+
+    const userId = req.params.userId;
+    if(userId){
+        
+        const result = await userProvider.userGetById(userId);
+        if(result.length<1){
+            return res.send(errResponse(baseResponse.WRONG_USER_ID));
+        }
+        return res.send(response(baseResponse.SUCCESS, result));
+        
+    }
+    else{
+        return res.send(errResponse(baseResponse.WRONG_USER_ID));
+
+    }
+}
+
+exports.postUser = async function (req, res){
+
+    const {name, email, password, regionId, mailAgree, smsAgree, vip, photoUrl, phoneNumber} = req.body;
+    if(password.length<10||password.length>30){
+        return res.send(errResponse(baseResponse.WRONG_LENGTH_PASSWORD));
+    }
+    if(regexEmail.test(email)==false){
+        return res.send(errResponse(baseResponse.WRONG_REGEX_EMAIL));
+    }
+    const resultemail = await userProvider.userGetByEmail(email);
+    if(resultemail.length>0){
+        return res.send(errResponse(baseResponse.DUP_EMAIL));
+    }
+    const result = await userService.postUser(name, email, password, regionId, mailAgree, smsAgree, vip, photoUrl, phoneNumber);
+    return res.send(result);
+
+    
+}
+
 
 // /**
 //  * API No. 1

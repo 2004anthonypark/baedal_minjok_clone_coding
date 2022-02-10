@@ -13,6 +13,19 @@ exports.retrieveUserList = async function (email) {
     return userListResult;
 };
 
+exports.userGetById = async function(userId){
+     const connection = await pool.getConnection(async (conn) => conn);
+     const Result = await userDao.selectUserById(connection,userId);
+     connection.release();
+     return Result;
+}
+
+exports.userGetByEmail = async function(email){
+    const connection = await pool.getConnection(async (conn) => conn);
+    const Result = await userDao.selectUserByEmail(connection,email);
+    connection.release();
+    return Result;
+}
 // exports.retrieveUser = async function (userId) {
 //   const connection = await pool.getConnection(async (conn) => conn);
 //   const userResult = await userDao.selectUserId(connection, userId);
