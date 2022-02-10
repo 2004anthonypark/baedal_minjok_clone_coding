@@ -84,7 +84,17 @@ exports.postUser = async function (req, res){
 
     
 }
+exports.changePassword = async function (req,res){
+    const newpassword = req.body.newpassword;
+    const userId = req.params.userId;
 
+    // validation 비밀번호 맞는지 확인 숙제 
+    // userid 가 탈퇴나 null 아닌지
+    //if(!newpassword||!userId)
+    //password 길이 괜찮은지
+    const result = await userService.changePassword(newpassword,userId);
+    return res.send(result);
+}   
 
 // /**
 //  * API No. 1

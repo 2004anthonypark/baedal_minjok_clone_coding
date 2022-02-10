@@ -29,6 +29,7 @@ module.exports = function(app){
     // // 회원 정보 수정 API (JWT 검증 및 Validation - 메소드 체이닝 방식으로 jwtMiddleware 사용)
     // app.patch('/app/user/:userId', jwtMiddleware, user.patchUsers)
 
+    app.patch('/app/change-password/:userId', user.changePassword);
     // app.patch('/app/user/:userId', jwtMiddleware, user.deleteUsers);
     // app.get('/app/kakaologin', user.kakaologin);
     // // app.get('/app/kakaologin/callback', passport.authenticate('kakao'), user.kakaologincallback);
@@ -39,7 +40,7 @@ module.exports = function(app){
     //     res.redirect('/');
     // });
     // app.post('/app/kakaologin',user.kakaologinAccess);
-
+    
 
 };
 

@@ -21,6 +21,16 @@ exports.postUser = async function (name, email, password, regionId, mailAgree, s
     connection.release();
     return response(baseResponse.SUCCESS);
 }
+exports.changePassword = async function (newpassword,userId){
+    const params = [newpassword,userId];
+
+    const connection = await pool.getConnection(async (conn) => conn);
+    const result = await userDao.changePasswords(connection, params);
+    connection.release();
+    return response(baseResponse.SUCCESS);
+}
+
+
 exports.createUser = async function (email, password, phoneNumber) {
     try {
         // 이메일 중복 확인

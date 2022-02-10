@@ -41,6 +41,14 @@ values(?, ?, ?, ?, ?, ?, ?, ?, ?);`;
       const userRows = await connection.query(query, params);
       return userRows;
 }
+
+async function changePasswords(connection, params){
+  const query =
+  `Update User Set password = ? Where id = ? ;`;
+
+  const userRows = await connection.query(query, params);
+      return userRows;
+}
 // // 이메일로 회원 조회
 // async function selectUserEmail(connection, email) {
 //   const selectUserEmailQuery = `
@@ -161,7 +169,7 @@ module.exports = {
   selectUserById,
   postUser,
   selectUserByEmail,
-
+  changePasswords,
   // selectUserEmail,
   // selectUserId,
   // insertUserInfo,
