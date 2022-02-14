@@ -1,54 +1,24 @@
 const { UserBindingContext } = require("twilio/lib/rest/chat/v2/service/user/userBinding");
 
+/* Dao : Query (in mysql) 실행 */
+
 // 모든 유저 조회
-async function selectUser(connection) {
-  const selectUserListQuery = `
+async function selectCategory(connection) {
+  const Query = `
                 select *
-                FROM User;
+                FROM Category;
                 `;
-  const [userRows] = await connection.query(selectUserListQuery);
-  return userRows;
+  const [Result] = await connection.query(Query);
+  return Result;
 }
 
 
-async function selectUserById(connection, userId) {
-  const query = 
-    `select id, photoUrl, name, email, password, mailAgree, smsAgree, phoneNumber
-    From User 
-    Where id = ?;`;
 
-    const [userRows] = await connection.query(query, userId);
-    return userRows;
 
-}
 
-async function selectUserByEmail(connection, email) {
-  const query = 
-    `select id, photoUrl, name, email, password, mailAgree, smsAgree, phoneNumber
-    From User 
-    Where email = ?;`;
 
-    const [userRows] = await connection.query(query, email);
-    return userRows;
 
-}
 
-async function postUser(connection, params){
-  const query =
-  `insert into User(name, email, password, regionId, mailAgree, smsAgree, vip, photoUrl, phoneNumber)
-values(?, ?, ?, ?, ?, ?, ?, ?, ?);`;
-
-      const userRows = await connection.query(query, params);
-      return userRows;
-}
-
-async function changePasswords(connection, params){
-  const query =
-  `Update User Set password = ? Where id = ? ;`;
-
-  const userRows = await connection.query(query, params);
-      return userRows;
-}
 // // 이메일로 회원 조회
 // async function selectUserEmail(connection, email) {
 //   const selectUserEmailQuery = `
@@ -165,19 +135,5 @@ async function changePasswords(connection, params){
 // }
 
 module.exports = {
-  selectUser,
-  selectUserById,
-  postUser,
-  selectUserByEmail,
-  changePasswords,
-  // selectUserEmail,
-  // selectUserId,
-  // insertUserInfo,
-  // selectUserPassword,
-  // selectUserAccount,
-  // updateUserInfo,
-  // updateUserPhoneNumber,
-  // updateUserPassword,
-  // deleteUser,
-  // selectUserStatus
-};
+  selectCategory,
+}

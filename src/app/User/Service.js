@@ -1,8 +1,8 @@
 const {logger} = require("../../../config/winston");
 const {pool} = require("../../../config/database");
 const secret_config = require("../../../config/secret");
-const userProvider = require("./userProvider");
-const userDao = require("./userDao");
+const Provider = require("./Provider");
+const Dao = require("./Dao");
 const baseResponse = require("../../../config/baseResponseStatus");
 const {response} = require("../../../config/response");
 const {errResponse} = require("../../../config/response");
@@ -11,54 +11,71 @@ const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 const {connect} = require("http2");
 
-// Service: Create, Update, Delete 비즈니스 로직 처리
+// Service: Create, Update, Delete 비즈니스 로직 처리 ( 데이터 베이스 변경이 있음 O )
+
+// 회원가입
 exports.postUser = async function (name, email, password, regionId, mailAgree, smsAgree, vip, photoUrl, phoneNumber){
     const params = [name, email, password, regionId, mailAgree, smsAgree, vip, photoUrl, phoneNumber];
 
     const connection = await pool.getConnection(async (conn) => conn);
-    const result = await userDao.postUser(connection, params);
+    const result = await Dao.postUser(connection, params);
     console.log(`추가된 회원 : ${result[0].insertId}`);
     connection.release();
     return response(baseResponse.SUCCESS);
 }
+
+// 비밀번호 변경
 exports.changePassword = async function (newpassword,userId){
     const params = [newpassword,userId];
 
     const connection = await pool.getConnection(async (conn) => conn);
-    const result = await userDao.changePasswords(connection, params);
+    const result = await Dao.changePasswords(connection, params);
     connection.release();
     return response(baseResponse.SUCCESS);
 }
 
 
-exports.createUser = async function (email, password, phoneNumber) {
-    try {
-        // 이메일 중복 확인
-        // const emailRows = await userProvider.emailCheck(email);
-        // if (emailRows.length > 0)
-        //     return errResponse(baseResponse.SIGNUP_REDUNDANT_EMAIL);
-
-        // 비밀번호 암호화
-        const hashedPassword = await crypto
-            .createHash("sha512")
-            .update(password)
-            .digest("hex");
-
-        const insertUserInfoParams = [email, hashedPassword, phoneNumber];
-
-        const connection = await pool.getConnection(async (conn) => conn);
-
-        const userIdResult = await userDao.insertUserInfo(connection, insertUserInfoParams);
-        console.log(`추가된 회원 : ${userIdResult[0].insertId}`)
-        connection.release();
-        return response(baseResponse.SUCCESS);
 
 
-    } catch (err) {
-        logger.error(`App - createUser Service error\n: ${err.message}`);
-        return errResponse(baseResponse.DB_ERROR);
-    }
-};
+
+
+
+
+
+
+
+
+
+
+
+// exports.createUser = async function (email, password, phoneNumber) {
+//     try {
+//         // 이메일 중복 확인
+//         // const emailRows = await userProvider.emailCheck(email);
+//         // if (emailRows.length > 0)
+//         //     return errResponse(baseResponse.SIGNUP_REDUNDANT_EMAIL);
+
+//         // 비밀번호 암호화
+//         const hashedPassword = await crypto
+//             .createHash("sha512")
+//             .update(password)
+//             .digest("hex");
+
+//         const insertUserInfoParams = [email, hashedPassword, phoneNumber];
+
+//         const connection = await pool.getConnection(async (conn) => conn);
+
+//         const userIdResult = await userDao.insertUserInfo(connection, insertUserInfoParams);
+//         console.log(`추가된 회원 : ${userIdResult[0].insertId}`)
+//         connection.release();
+//         return response(baseResponse.SUCCESS);
+
+
+//     } catch (err) {
+//         logger.error(`App - createUser Service error\n: ${err.message}`);
+//         return errResponse(baseResponse.DB_ERROR);
+//     }
+// };
 
 
 // // TODO: After 로그인 인증 방법 (JWT)

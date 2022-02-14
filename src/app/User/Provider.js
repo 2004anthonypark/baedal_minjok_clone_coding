@@ -1,31 +1,42 @@
 const { pool } = require("../../../config/database");
 const { logger } = require("../../../config/winston");
 
-const userDao = require("./userDao");
+const Dao = require("./Dao");
 
-// Provider: Read 비즈니스 로직 처리
+// Provider: Read 비즈니스 로직 처리 ( 조회 API )
 
+// 전체유저 정보 조회
 exports.retrieveUserList = async function (email) {
 
     const connection = await pool.getConnection(async (conn) => conn);
-    const userListResult = await userDao.selectUser(connection);
+    const result = await Dao.selectUser(connection);
     connection.release();
-    return userListResult;
+    return result;
 };
 
+// 아이디로 유저 정보 조회(내 정보 조회)
 exports.userGetById = async function(userId){
      const connection = await pool.getConnection(async (conn) => conn);
-     const Result = await userDao.selectUserById(connection,userId);
+     const result = await Dao.selectUserById(connection,userId);
      connection.release();
-     return Result;
+     return result;
 }
 
+// 이메일로 유저 정보 조회(내 정보 조회)
 exports.userGetByEmail = async function(email){
     const connection = await pool.getConnection(async (conn) => conn);
-    const Result = await userDao.selectUserByEmail(connection,email);
+    const result = await Dao.selectUserByEmail(connection,email);
     connection.release();
-    return Result;
+    return result;
 }
+
+
+
+
+
+
+
+
 // exports.retrieveUser = async function (userId) {
 //   const connection = await pool.getConnection(async (conn) => conn);
 //   const userResult = await userDao.selectUserId(connection, userId);
