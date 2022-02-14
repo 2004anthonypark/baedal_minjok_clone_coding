@@ -36,6 +36,7 @@ async function selectUserByEmail(connection, email) {
 
 }
 
+
 // 회원가입
 async function postUser(connection, params){
   const query =
