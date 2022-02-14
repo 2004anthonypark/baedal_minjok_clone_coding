@@ -54,4 +54,6 @@ module.exports = {
     WRONG_REGEX_EMAIL:{"isSuccess" : false, "code": 5002, "message": "이메일 형식 에러"},
 
     DUP_EMAIL: {"isSuccess" : false, "code": 5003, "message": "이미 있는 이메일"},
+
+    WRONG_INPUT: {"isSuccess" : false, "code": 5004, "message": "잘못된 인풋"},
 }
