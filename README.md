@@ -1,3 +1,6 @@
+## API 명세서:
+https://docs.google.com/spreadsheets/d/1V9mwjO7wMd5S9Q-OmQ8ZnYI_LHomyfDyDuBhNNlKTMk/edit#gid=1798305458
+
 ## 개발일지
 
 # 1월 1째주 
@@ -28,5 +31,5 @@
 2. 사용자별 식당별 찜여부 조회ㅣ Api
 3. 사용자별 찜식당  조회 APi
 
-# 2월 셋쨰주
+# 2월 셋째주
 1. 사용자별 식당별 찜여부 수정ㅣ Api
