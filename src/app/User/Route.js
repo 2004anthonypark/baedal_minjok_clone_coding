@@ -17,7 +17,7 @@ module.exports = function(app){
     // 4. 비밀번호 수정 API
     app.patch('/app/change-password/:userId', cont.changePassword);
     
-
+    app.post('/app/phone-validation', cont.phonevalidation);
 };
 
 

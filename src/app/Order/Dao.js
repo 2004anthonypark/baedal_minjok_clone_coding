@@ -6,68 +6,25 @@ const { UserBindingContext } = require("twilio/lib/rest/chat/v2/service/user/use
 
 
 
-// 사용자별 전체 찜식당 조회
-async function getRestByUserIdd(connection, userId) {
-  const Query = `
-              Select * from Restaurant R
-              Inner Join Keep K on K.status= "activate" and K.userId=?
-             where R.id = K.resId;
-  `;
-  const [Result] = await connection.query(Query,userId);
-  return Result;
-}
-
-//사용자별 식당 찜여부 조회
-async function isKeepByUserIdd(connection, params) {
-  const Query = `
-        Select * from Restaurant  R
-        Inner Join Keep K on K.userId = ?
-        where R.id = K.resId and R.id = ?
-        `;
-  const [Result] = await connection.query(Query,params);
-  return Result;
-}
-
-//특정식당조회
-async function getRestByRestIdd(connection, restId) {
-  const Query = `
-    Select * from Restaurant R
-    where R.id = ?;
-    `;
-    const [result] = await connection.query(Query, restId);
-    return result;
-}
-//for validation
-async function getRegionByIdd(connection,regionId) {
-  const Query = `
-  Select id from Region
-  where id = ?;
-  `;
-  const [result] = await connection.query(Query, regionId);
-  return result;
-}
-
-async function getCategoryByIdd(connection,categoryId) {
-  const Query = `
-  Select id from Category
-  where id = ?;
-  `;
-  const [result] = await connection.query(Query, categoryId);
-  return result;
-}
-
-//지역별 카테고리별 식당조회 Api
-async function getRestd(connection, params){
-  const Query = `
-  Select * from Restaurant R
-   Inner Join CategoryRest CR on CR.categoryId = ?
-   Inner Join RegionRest RR on RR.regionId = ? AND RR.resId= CR.resId
-Where CR.resId = R.id;
+//사용자별 메뉴별 주문등록 APi
+async function postOrderd(connection,params){
+  const Query =`
+  INSERT Into Orders(totalCost, resId, userId, tele, location, ownerComment, riderComment, deliveryTip, resName, payMethod)
+Values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
   `;
   const [result] = await connection.query(Query, params);
   return result;
 }
 
+// 사용자별 주문내역조회 APi
+async function getOrderByUserIdd(connection,userId){
+  const Query =`
+  Select * from Orders 
+  where userId = ?;
+  `;
+  const [result] = await connection.query(Query, userId);
+  return result;
+}
 // // 이메일로 회원 조회
 // async function selectUserEmail(connection, email) {
 //   const selectUserEmailQuery = `
@@ -184,10 +141,6 @@ Where CR.resId = R.id;
 // }
 
 module.exports = {
-  getRestByUserIdd,
-  isKeepByUserIdd,
-  getRestByRestIdd,
-  getRestd,
-  getRegionByIdd,
-  getCategoryByIdd,
+  postOrderd,
+  getOrderByUserIdd,
 }

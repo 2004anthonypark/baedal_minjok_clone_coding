@@ -33,3 +33,8 @@ https://docs.google.com/spreadsheets/d/1V9mwjO7wMd5S9Q-OmQ8ZnYI_LHomyfDyDuBhNNlK
 
 # 2월 셋째주
 1. 사용자별 식당별 찜여부 수정ㅣ Api
+2. 지역별 카테고리별 식당조회 Api
+3. 특정식당조회 Api 
+4. 사용자별 메뉴별 주문등록 Api
+5. 사용자별 주문내역조회 Api
+6. sms 인증 Api

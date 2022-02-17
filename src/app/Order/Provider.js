@@ -15,7 +15,7 @@ exports.getRestByUserId = async function (userId) {
     return result;
 };
 
-//사용자별 식당 찜여부 수정
+//사용자별 식당 찜여부 조회
 exports.isKeepByUserIdp = async function (params) {
 
     const connection = await pool.getConnection(async (conn) => conn);
@@ -29,33 +29,10 @@ exports.isKeepByUserIdp = async function (params) {
     }
 };
 
-//특정식당조회 api
-exports.getRestByRestIdp = async function (restId) {
+//사용자별 주문내역조회 APi
+exports.getOrderByUserIdp = async function (userId){
     const connection = await pool.getConnection(async (conn) => conn);
-    const result = await Dao.getRestByRestIdd(connection, restId);
+    const result = await Dao.getOrderByUserIdd(connection, userId);
     connection.release();
     return result;
 }
-
-exports.getRegionById = async function (regionId){
-    const connection = await pool.getConnection(async (conn) => conn);
-    const result = await Dao.getRegionByIdd(connection, regionId);
-    connection.release();
-    return result;
-}
-
-exports.getCategoryById = async function (categoryId){
-    const connection = await pool.getConnection(async (conn) => conn);
-    const result = await Dao.getCategoryByIdd(connection, categoryId);
-    connection.release();
-    return result;
-}
-
-//지역별 카테고리별 식당조회 Api
-exports.getRestp = async function (params){
-    const connection = await pool.getConnection(async (conn) => conn);
-    const result = await Dao.getRestd(connection, params);
-    connection.release();
-    return result;
-}
-

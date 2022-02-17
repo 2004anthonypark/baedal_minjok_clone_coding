@@ -44,3 +44,38 @@ exports.isKeepByUserId = async function (req,res){
     return res.send(response(baseResponse.SUCCESS, result));
 }
  
+
+//특정식당조회 api
+exports.getRestByRestId = async function (req,res){
+    const restId = req.params.restId;
+    if(!restId){
+        return res.send(errResponse(baseResponse.WRONG_INPUT));
+    }
+    
+    const result = await Provider.getRestByRestIdp(restId);
+    if(result.length<1){
+        return res.send(errResponse(baseResponse.NO_EXIST_ID));
+    }
+    return res.send(response(baseResponse.SUCCESS, result));
+}
+
+//지역별 카테고리별 식당조회 Api
+exports.getRest = async function (req,res){
+    const regionId = req.query.regionId;
+    const categoryId = req.query.categoryId
+    if(!regionId||!categoryId){
+        return res.send(errResponse(baseResponse.WRONG_INPUT));
+    }
+    const regionResult = await Provider.getRegionById(regionId);
+    const categoryResult = await Provider.getCategoryById(categoryId);
+    if(regionResult.length<1){
+        return res.send(errResponse(baseResponse.NO_EXIST_REGIONID));
+    }
+    if(categoryResult.length<1){
+        return res.send(errResponse(baseResponse.NO_EXIST_CATEGORYID));
+    }
+    const params =[categoryId,regionId];
+    const result = await Provider.getRestp(params);
+    return res.send(response(baseResponse.SUCCESS, result));
+
+}

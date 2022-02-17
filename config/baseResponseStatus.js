@@ -56,4 +56,11 @@ module.exports = {
     DUP_EMAIL: {"isSuccess" : false, "code": 5003, "message": "이미 있는 이메일"},
 
     WRONG_INPUT: {"isSuccess" : false, "code": 5004, "message": "잘못된 인풋"},
+
+    NO_EXIST_ID:{"isSuccess" : false, "code": 5005, "message": "존재하지않는 아이디"},
+
+    NO_EXIST_REGIONID: {"isSuccess" : false, "code": 5006, "message": "존재하지않는 지역아이디"},
+
+    NO_EXIST_CATEGORYID: {"isSuccess" : false, "code": 5007, "message": "존재하지않는 카테고리아이디"},
+
 }

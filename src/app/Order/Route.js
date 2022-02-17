@@ -11,14 +11,9 @@ module.exports = function(app){
     // app.post('/app/post-user',user.postUser);
       
 
-    app.get('/app/rest/keep/:userId',cont.getRestByUserId);
+    app.post('/app/order',cont.postOrder);
 
-    app.get('/app/rest/is-keep',cont.isKeepByUserId);
-
-    app.get('/app/rest/:restId', cont.getRestByRestId);
-
-    app.get('/app/rest', cont.getRest);
-
+    app.get('/app/order', cont.getOrderByUserId);
     
 };
 

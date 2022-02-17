@@ -21,127 +21,23 @@ var SHA256 = require("crypto-js/sha256");
 var Base64 = require("crypto-js/enc-base64");
 const { SUCCESS } = require("../../../config/baseResponseStatus");
 
-function send_message(phone ,user_auth_number) {
-    var user_phone_number = phone;
-    // var user_auth_number = Math.random().toString(36).slice(2);
-    var resultCode = 404;
-    const date = Date.now().toString();
-    const uri = "ncp:sms:kr:271054712081:yanolja_b";
-    const secretKey = "4fh2a4gHqkwdCpDmb0f81N1ORFbpNXiYEwCDw2On";
-    const accessKey = "VtGLHmWrNekjm0A5UHvd";
-    const method = "POST"; const space = " ";
-    const newLine = "\n";
-    const url = `https://sens.apigw.ntruss.com/sms/v2/services/${uri}/messages`;
-    const url2 = `/sms/v2/services/${uri}/messages`;
-    const hmac = CryptoJS.algo.HMAC.create(CryptoJS.algo.SHA256, secretKey);
-    hmac.update(method);
-    hmac.update(space);
-    hmac.update(url2);
-    hmac.update(newLine);
-    hmac.update(date);
-    hmac.update(newLine);
-    console.log(`인증번호 ${user_auth_number} 입니다.`);
-    hmac.update(accessKey);
-    const hash = hmac.finalize();
-    const signature = hash.toString(CryptoJS.enc.Base64);
-    request( { method: method, json: true, uri: url, headers:
-            { "Contenc-type": "application/json; charset=utf-8",
-                "x-ncp-iam-access-key": accessKey,
-                "x-ncp-apigw-timestamp": date,
-                "x-ncp-apigw-signature-v2": signature, },
-        body: { type: "SMS", countryCode: "82",
-            from: "01027290986",
-            content: `[배달의 민족] 인증번호는 [${user_auth_number}] 입니다.`,
-            messages: [ { to: `${user_phone_number}`, }, ], }, },
-        function (err, res, html) {
-        if (err) console.log(err);
-        else { resultCode = 200; console.log(html); } } );
-    return resultCode;
-};
-exports.phonevalidation = async function (req, res) {
-    const phoneNumber = req.body.phoneNumber;
-    //validation
-    if(!phoneNumber) return res.send(response(baseResponse.PHONENUMBER_EMPTY));
-    const phonenum = phoneNumber.substr(0,3) + phoneNumber.substr(4,4) + phoneNumber.substr(9,4);
-    if(phoneNumber.length != 13 || isNaN(phonenum)){
-        return res.send(response(baseResponse.PHONENUMBER_FORMAT_ERROR));
-    }
-    console.log(phonenum);
-    let authNum = Math.random().toString().substr(2,6);
-    send_message(phonenum,authNum);
-    res.send(response(baseResponse.SUCCESS, {"validationCode ": authNum}));
-};
-
 /* Controller : Validation, query body path variables 핸들링. */
-// 모든 유저 정보 조회
- exports.getUsers = async function (req, res) {
 
-
-        // 유저 전체 조회
-    const result = await Provider.retrieveUserList();
-    return res.send(response(baseResponse.SUCCESS, result));
-    
-};
-
-// 유저 아이디로 유저정보 조회
-exports.getUserById = async function (req, res){
-
-    const userId = req.params.userId;
-    if(userId){
-        
-        const result = await Provider.userGetById(userId);
-        if(result.length<1){
-            return res.send(errResponse(baseResponse.WRONG_USER_ID));
-        }
-        return res.send(response(baseResponse.SUCCESS, result));
-        
-    }
-    else{
-        return res.send(errResponse(baseResponse.WRONG_USER_ID));
-
-    }
-}
-
-// 회원가입
-exports.postUser = async function (req, res){
-
-    const {name, email, password, regionId, mailAgree, smsAgree, vip, photoUrl, phoneNumber} = req.body;
-    if(password.length<10||password.length>30){
-        return res.send(errResponse(baseResponse.WRONG_LENGTH_PASSWORD));
-    }
-    if(regexEmail.test(email)==false){
-        return res.send(errResponse(baseResponse.WRONG_REGEX_EMAIL));
-    }
-    const resultemail = await Provider.userGetByEmail(email);
-    if(resultemail.length>0){
-        return res.send(errResponse(baseResponse.DUP_EMAIL));
-    }
-    const result = await Service.postUser(name, email, password, regionId, mailAgree, smsAgree, vip, photoUrl, phoneNumber);
+//사용자별 메뉴별 주문등록 APi
+exports.postOrder = async function(req, res){
+    const {totalCost, resId, userId, tele, location, ownerComment, riderComment, deliveryTip, resName, payMethod}= req.body;
+    const params =[totalCost, resId, userId, tele, location, ownerComment, riderComment, deliveryTip, resName, payMethod];
+    const result = await Service.postOrders(params);
     return res.send(result);
 
-    
 }
-
-// 비밀번호 변경
-exports.changePassword = async function (req,res){
-    const newpassword = req.body.newpassword;
-    const userId = req.params.userId;
-
-    // validation 비밀번호 맞는지 확인 숙제 
-    // userid 가 탈퇴나 null 아닌지
-    //if(!newpassword||!userId)
-    //password 길이 괜찮은지
-    const result = await Service.changePassword(newpassword,userId);
-    return res.send(result);
-}   
-
-
-
-
-
-
-
-
+ 
+//사용자별 주문내역조회 APi
+exports.getOrderByUserId = async function(req, res){
+    const userId = req.query.userId;
+    const result = await Provider.getOrderByUserIdp(userId);
+    return res.send(response(baseResponse.SUCCESS,result));
+}
 
 
 // /**
