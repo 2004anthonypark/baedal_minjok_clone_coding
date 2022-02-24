@@ -6,40 +6,51 @@ const { UserBindingContext } = require("twilio/lib/rest/chat/v2/service/user/use
 
 
 
-//사용자별 메뉴별 주문등록 APi
-async function postOrderd(connection,params){
-  const Query =`
-  INSERT Into Orders(totalCost, resId, userId, tele, location, ownerComment, riderComment, deliveryTip, resName, payMethod)
-Values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
-  `;
-  const [result] = await connection.query(Query, params);
-  return result;
+//사용자별 식당 찜여부 조회
+async function isKeepByUserIdd(connection, params) {
+  const Query = `
+        Select * from Restaurant  R
+        Inner Join Keep K on K.status = "activate" and K.userId = ?
+        where R.id = K.resId and R.id = ?
+        `;
+  const [Result] = await connection.query(Query,params);
+  return Result;
 }
 
-// 사용자별 주문내역조회 APi
-async function getOrderByUserIdd(connection,userId){
-  const Query =`
-  Select * from Orders 
-  where userId = ?;
-  `;
-  const [result] = await connection.query(Query, userId);
-  return result;
+//사용자별 식당별 찜여부 수정ㅣ deleted
+async function isKeeptoDeleted(connection, params) {
+  const Query = `
+  Update Keep Set status = 'deleted' Where userId=? and resId=?;
+        `;
+  const [Result] = await connection.query(Query,params);
+  return Result;
+}
+//사용자별 식당별 찜여부 수정ㅣ activate
+async function isKeeptoActivated(connection, params) {
+  const Query = `
+  Update Keep Set status = 'activate' Where userId=? and resId=?;
+        `;
+  const [Result] = await connection.query(Query,params);
+  return Result;
 }
 
-//주문완료 수정 API
-async function changeDeliveryStatusd(connection, orderId){
-  const Query =`Update Orders Set deliveryStatus = 'done' Where id=?;`;
-  const [result] = await connection.query(Query, orderId);
-  return result;
+//리뷰등록 API
+async function postReviewd(connection, params){
+  const Query = `
+  Insert Into Review(text, reviewRate, orderId, reviewDate, userId, resId)
+  values(?,?,?,?,?,?);
+  `;
+  const [Result] = await connection.query(Query, params);
+  return Result;
 }
 
-//testOrderId validation
-async function testOrderIdd(connection, orderId){
-  const Query =`
-  Select * from Orders Where id=? and deliveryStatus = 'inprogress';
+//식당별 리뷰조회 API
+async function getReviewByRestIdd(connection, restId){
+  const Query=`
+  Select * from Review R Where resId = ?;
   `;
-  const [result] = await connection.query(Query, orderId);
-  return result;
+  const [Result] = await connection.query(Query, restId);
+  return Result;
 }
 
 // // 이메일로 회원 조회
@@ -158,8 +169,9 @@ async function testOrderIdd(connection, orderId){
 // }
 
 module.exports = {
-  postOrderd,
-  getOrderByUserIdd,
-  changeDeliveryStatusd,
-  testOrderIdd,
+  isKeepByUserIdd,
+  isKeeptoActivated,
+  isKeeptoDeleted,
+  postReviewd,
+  getReviewByRestIdd,
 }

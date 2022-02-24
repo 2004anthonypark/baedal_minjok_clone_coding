@@ -36,3 +36,12 @@ exports.getOrderByUserIdp = async function (userId){
     connection.release();
     return result;
 }
+
+//testOrderId
+exports.testOrderId = async function (orderId){
+    const connection = await pool.getConnection(async (conn) => conn);
+    const result = await Dao.testOrderIdd(connection, orderId);
+    connection.release();
+    return result;
+
+}

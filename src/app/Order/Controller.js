@@ -39,6 +39,17 @@ exports.getOrderByUserId = async function(req, res){
     return res.send(response(baseResponse.SUCCESS,result));
 }
 
+//주문완료 수정 API
+exports.changeDeliveryStatus = async function(req,res){
+    const orderId = req.params.orderId;
+    const test = await Provider.testOrderId(orderId);
+    if(test.length<1||!orderId){
+        return res.send(errResponse(baseResponse.WRONG_ORDERID));
+    }
+    
+    const result = await Service.changeDeliveryStatuss(orderId);
+    return res.send(response(baseResponse.SUCCESS,result));
+}
 
 // /**
 //  * API No. 1

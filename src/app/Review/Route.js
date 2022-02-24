@@ -11,15 +11,12 @@ module.exports = function(app){
     // app.post('/app/post-user',user.postUser);
       
 
-    app.get('/app/rest/keep/:userId',cont.getRestByUserId);
+    
 
-    app.get('/app/rest/is-keep',cont.isKeepByUserId);
+  
+    app.post('/app/post-review',cont.postReview);
+    app.get('/app/review',cont.getReviewByRestId);
 
-    app.get('/app/rest/:restId', cont.getRestByRestId);
-
-    app.get('/app/rest', cont.getRest);
-
-    app.get('/app/advertise', cont.getAdvertise);
 };
 
 

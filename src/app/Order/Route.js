@@ -15,6 +15,7 @@ module.exports = function(app){
 
     app.get('/app/order', cont.getOrderByUserId);
     
+    app.patch('/app/order/delivery-status/:orderId', cont.changeDeliveryStatus);
 };
 
 

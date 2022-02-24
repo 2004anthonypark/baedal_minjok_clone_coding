@@ -59,3 +59,12 @@ exports.getRestp = async function (params){
     return result;
 }
 
+//광고조회 API
+exports.getAdvertisep = async function (){
+    const connection = await pool.getConnection(async (conn) => conn);
+    const result = await Dao.getAdvertised(connection);
+    connection.release();
+    return result;
+
+}
+

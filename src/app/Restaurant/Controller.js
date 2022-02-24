@@ -79,3 +79,9 @@ exports.getRest = async function (req,res){
     return res.send(response(baseResponse.SUCCESS, result));
 
 }
+
+//광고조회 API
+exports.getAdvertise = async function (req, res){
+    const result = await Provider.getAdvertisep();
+    return res.send(response(baseResponse.SUCCESS, result));
+}

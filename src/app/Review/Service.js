@@ -12,7 +12,6 @@ const crypto = require("crypto");
 const {connect} = require("http2");
 const { release } = require("os");
 const res = require("express/lib/response");
-const { ConnectionPolicyContext } = require("twilio/lib/rest/voice/v1/connectionPolicy");
 
 // Service: Create, Update, Delete 비즈니스 로직 처리 ( 데이터 베이스 변경이 있음 O )
 
@@ -27,23 +26,17 @@ const { ConnectionPolicyContext } = require("twilio/lib/rest/voice/v1/connection
 //     return response(baseResponse.SUCCESS);
 // }
 
-exports.postOrders = async function (params){
+
+
+
+
+//리뷰등록 API
+exports.postReviews = async function (params){
     const connection = await pool.getConnection(async (conn) => conn);
-    const result = await Dao.postOrderd(connection, params);
+    const result = await Dao.postReviewd(connection, params);
     connection.release();
     return response(baseResponse.SUCCESS);
 }
-
-//주문완료 수정 API
-exports.changeDeliveryStatuss = async function (orderId){
-    const connection = await pool.getConnection(async (conn) => conn);
-    const result = await Dao.changeDeliveryStatusd(connection, orderId);
-    connection.release();
-    return response(baseResponse.SUCCESS);
-}
-
-
-
 
 
 

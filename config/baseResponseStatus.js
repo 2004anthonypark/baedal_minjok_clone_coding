@@ -1,3 +1,5 @@
+const { FlowValidateInstance } = require("twilio/lib/rest/studio/v2/flowValidate");
+
 module.exports = {
 
     // Success
@@ -63,4 +65,5 @@ module.exports = {
 
     NO_EXIST_CATEGORYID: {"isSuccess" : false, "code": 5007, "message": "존재하지않는 카테고리아이디"},
 
+    WRONG_ORDERID: {"isSuccess" : false, "code": 5008, "message": "잘못된 오더아이디"},
 }

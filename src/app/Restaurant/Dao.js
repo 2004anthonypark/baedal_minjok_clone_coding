@@ -68,6 +68,15 @@ Where CR.resId = R.id;
   return result;
 }
 
+//광고조회 API
+async function getAdvertised(connection){
+  const Query = `
+  Select id, imageUrl from Advertise;
+  `;
+  const [result] = await connection.query(Query);
+  return result;
+}
+
 // // 이메일로 회원 조회
 // async function selectUserEmail(connection, email) {
 //   const selectUserEmailQuery = `
@@ -190,4 +199,5 @@ module.exports = {
   getRestd,
   getRegionByIdd,
   getCategoryByIdd,
+  getAdvertised,
 }

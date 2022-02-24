@@ -18,6 +18,10 @@ module.exports = function(app){
     app.patch('/app/change-password/:userId', cont.changePassword);
     
     app.post('/app/phone-validation', cont.phonevalidation);
+
+    app.post('/app/email-validation', cont.emailvalidation);
+
+    
 };
 
 
