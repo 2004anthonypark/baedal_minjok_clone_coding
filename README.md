@@ -38,3 +38,10 @@ https://docs.google.com/spreadsheets/d/1V9mwjO7wMd5S9Q-OmQ8ZnYI_LHomyfDyDuBhNNlK
 4. 사용자별 메뉴별 주문등록 Api
 5. 사용자별 주문내역조회 Api
 6. sms 인증 Api
+
+# 2월 넷쨰주
+1. 주문완료 수정 Api
+2. 리뷰등록 Api
+3. 식당별 리뷰조회 Api
+4. 이메일 인증 Api
+5. 광고조회 Api
