@@ -20,81 +20,43 @@ var CryptoJS = require("crypto-js");
 var SHA256 = require("crypto-js/sha256");
 var Base64 = require("crypto-js/enc-base64");
 const { SUCCESS } = require("../../../config/baseResponseStatus");
+const e = require("express");
 
 /* Controller : Validation, query body path variables 핸들링. */
 
-
-
-
-
-//리뷰등록 API
-exports.postReview = async function (req,res){
-    const {text, reviewRate, orderId, reviewDate, userId, resId} = req.body;
-    const params = [text, reviewRate, orderId, reviewDate, userId, resId];
-    const result = await Service.postReviews(params);
-    return res.send(response(baseResponse.SUCCESS, result));
-}
- 
-//식당별 리뷰조회 API
-exports.getReviewByRestId = async function (req,res){
-    const restId = req.query.restId;
-    const result = await Provider.getReviewByRestIdp(restId);
-    return res.send(response(baseResponse.SUCCESS, result));
-}
-
-//리뷰 사진등록 API
-exports.postReviewPhoto = async function (req,res){
-    const {reviewId, imageUrl} = req.body;
-    if(!reviewId||!imageUrl){
-        return res.send(response(baseResponse.WRONG_INPUT));
+// 사용자별 포인트 수정 API
+exports.changePoint = async function(req,res){
+    const {userId, changePoint, resId, resName} = req.body;
+    if(!userId||!changePoint||!resId||!resName){
+        return res.send(errResponse(baseResponse.WRONG_INPUT));
     }
-    const check = await Provider.getReviewByIdp(reviewId);
+    const check = await Provider.getUserbyId(userId);
     if(check.length<1){
-        return res.send(errResponse(baseResponse.WRONG_REVIEWID));
+        return res.send(errResponse(baseResponse.WRONG_USER_ID));
     }
-    const params = [reviewId, imageUrl];
-    const result = await Service.postReviewPhotos(params);
+    const params=[userId, changePoint, resId, resName];
+    const check2 = Provider.getPointbyUseridp(userId);
+    console.log(check2[0]);
+    console.log(parseInt(check2.remainPoint));
+    if(parseInt(check2.remainPoint)+parseInt(changePoint)<0){
+        return res.send(errResponse(baseResponse.REMAINPOINT_ERROR));
+    }
+    const result = await Service.changePoints(params);
     return res.send(result);
-}   
-
-//사용자별 리뷰조회 API
-exports.getReviewByUserId = async function (req, res){
+}
+//사용자별 포인트 조회 API
+exports.getPointbyUserid = async function(req,res){
     const userId = req.query.userId;
-    const result = await Provider.getReviewByUserIdp(userId);
+    if(!userId){
+        return res.send(errResponse(baseResponse.WRONG_INPUT));
+    }
+    const check = await Provider.getUserbyId(userId);
+    if(check.length<1){
+        return res.send(errResponse(baseResponse.WRONG_USER_ID));
+    }
+    const result = await Provider.getPointbyUseridp(userId);
     return res.send(response(baseResponse.SUCCESS, result));
 }
-
-//리뷰텍스트수정API
-exports.changeReviewText = async function (req,res){
-    const reviewId = req.params.reviewId;
-    const text = req.body.text;
-    const params = [text, reviewId];
-    if(!reviewId||!text){
-        return res.send(errResponse(baseResponse.WRONG_INPUT));
-    }
-    const check = await Provider.getReviewByIdp(reviewId);
-    if(check.length<1){
-        return res.send(errResponse(baseResponse.WRONG_REVIEWID));
-    }
-    const result = await Service.changeReviewTexts(params);
-    return res.send(result);
-}
-
-//리뷰 댓글 등록 API
-exports.postReviewComment = async function (req,res){
-    const {reviewId,userId,content} = req.body;
-    if(!reviewId||!userId||!content){
-        return res.send(errResponse(baseResponse.WRONG_INPUT));
-    }
-    const check = await Provider.getReviewByIdp(reviewId);
-    if(check.length<1){
-        return res.send(errResponse(baseResponse.WRONG_REVIEWID));
-    }
-    const params = [reviewId,userId,content];
-    const result = await Service.postReviewComments(params);
-    return res.send(result);
-}
-
 
 // /**
 //  * API No. 1

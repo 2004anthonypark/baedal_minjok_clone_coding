@@ -13,13 +13,8 @@ module.exports = function(app){
 
     
 
-  
-    app.post('/app/post-review',cont.postReview);
-    app.get('/app/review',cont.getReviewByRestId);
-    app.post('/app/post-review-photo', cont.postReviewPhoto);
-    app.get('/app/review-user',cont.getReviewByUserId);
-    app.patch('/app/review/text/:reviewId',cont.changeReviewText);
-    app.post('/app/post-review-comment',cont.postReviewComment);
+    app.post('/app/point-change',cont.changePoint);
+    app.get('/app/point',cont.getPointbyUserid);
 };
 
 

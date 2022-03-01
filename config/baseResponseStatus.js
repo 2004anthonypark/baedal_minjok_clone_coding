@@ -66,4 +66,8 @@ module.exports = {
     NO_EXIST_CATEGORYID: {"isSuccess" : false, "code": 5007, "message": "존재하지않는 카테고리아이디"},
 
     WRONG_ORDERID: {"isSuccess" : false, "code": 5008, "message": "잘못된 오더아이디"},
+
+    WRONG_REVIEWID: {"isSuccess" : false, "code": 5009, "message": "잘못된 리뷰아이디"},
+
+    REMAINPOINT_ERROR: {"isSuccess" : false, "code": 5010, "message": "포인트 부족"},
 }

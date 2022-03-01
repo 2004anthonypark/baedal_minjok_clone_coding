@@ -28,39 +28,20 @@ const res = require("express/lib/response");
 
 
 
-
-
-//리뷰등록 API
-exports.postReviews = async function (params){
+// 사용자별 포인트 수정 API
+exports.changePoints = async function(params){
     const connection = await pool.getConnection(async (conn) => conn);
-    const result = await Dao.postReviewd(connection, params);
+    const result = await Dao.changePointd(connection, params);
     connection.release();
     return response(baseResponse.SUCCESS);
 }
 
-//리뷰텍스트수정API
-exports.changeReviewTexts = async function (reviewId){
-    const connection = await pool.getConnection(async (conn) => conn);
-    const result = await Dao.changeReviewTextd(connection, reviewId);
-    connection.release();
-    return response(baseResponse.SUCCESS);
-}
 
-//리뷰 사진등록 API
-exports.postReviewPhotos = async function(params){
-    const connection = await pool.getConnection(async (conn) => conn);
-    const result = await Dao.postReviewPhotod(connection, params);
-    connection.release();
-    return response(baseResponse.SUCCESS);
-}
 
-//리뷰 댓글 등록 API
-exports.postReviewComments = async function(params){
-    const connection = await pool.getConnection(async (conn) => conn);
-    const result = await Dao.postReviewCommentd(connection, params);
-    connection.release();
-    return response(baseResponse.SUCCESS);
-}
+
+
+
+
 
 
 

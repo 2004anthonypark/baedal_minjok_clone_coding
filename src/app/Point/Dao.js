@@ -6,101 +6,30 @@ const { UserBindingContext } = require("twilio/lib/rest/chat/v2/service/user/use
 
 
 
-//사용자별 식당 찜여부 조회
-async function isKeepByUserIdd(connection, params) {
-  const Query = `
-        Select * from Restaurant  R
-        Inner Join Keep K on K.status = "activate" and K.userId = ?
-        where R.id = K.resId and R.id = ?
-        `;
-  const [Result] = await connection.query(Query,params);
-  return Result;
+//사용자아이디 가져오기
+async function getUserbyIdd(connection, userId){
+  const Query = `select * from User where id=?;`;
+  const [result] = await connection.query(Query, userId);
+  return result;
 }
 
-//사용자별 식당별 찜여부 수정ㅣ deleted
-async function isKeeptoDeleted(connection, params) {
-  const Query = `
-  Update Keep Set status = 'deleted' Where userId=? and resId=?;
-        `;
-  const [Result] = await connection.query(Query,params);
-  return Result;
-}
-//사용자별 식당별 찜여부 수정ㅣ activate
-async function isKeeptoActivated(connection, params) {
-  const Query = `
-  Update Keep Set status = 'activate' Where userId=? and resId=?;
-        `;
-  const [Result] = await connection.query(Query,params);
-  return Result;
+// 사용자별 포인트 수정 API
+async function changePointd(connection, params){
+  const Query = `INSERT INTO Point(userId, changePoint, resId, resName) VALUES(?,?,?,?);`;
+  const [result] = await connection.query(Query, params);
+  return result;
 }
 
-//리뷰등록 API
-async function postReviewd(connection, params){
-  const Query = `
-  Insert Into Review(text, reviewRate, orderId, reviewDate, userId, resId)
-  values(?,?,?,?,?,?);
-  `;
-  const [Result] = await connection.query(Query, params);
-  return Result;
-}
-
-//식당별 리뷰조회 API
-async function getReviewByRestIdd(connection, restId){
+//사용자별 포인트 조회 API
+async function getPointbyUseridd(connection, userId){
   const Query=`
-  Select * from Review R Where resId = ?;
+  select sum(changePoint) as 'remainPoint' from Point where userId=1;
   `;
-  const [Result] = await connection.query(Query, restId);
-  return Result;
-}
-
-//사용자별 리뷰조회 API
-async function getReviewByUserIdd(connection, userId){
-  const Query=`
-  Select * from Review R Where userId= ?;
-  `;
-  const [Result] = await connection.query(Query, userId);
-  return Result;
-}
-
-//리뷰텍스트수정API
-async function changeReviewTextd(connection, params){
-  const Query=`
-  Update Review Set text = ? Where id=?;
-  `;
-  const [Result] = await connection.query(Query, params);
-  return Result;
-}
-
-//review아이디 조회
-async function getReviewByIdd(connection, reviewId){
-  const Query=`
-  Select * from Review R Where id= ?;
-  `;
-  const [Result] = await connection.query(Query, reviewId);
-  return Result;
-}
-
-//리뷰 사진등록 API
-async function postReviewPhotod(connection, params){
-  const Query=`
-  Insert into ReviewPhoto(reviewId,imageUrl)
-  Values(?,?);
-  `;
-  const [Result] = await connection.query(Query, params);
-  return Result;
+  const [result] = await connection.query(Query, userId);
+  return result;
 
 }
 
-//리뷰 댓글 등록 API
-async function postReviewCommentd(connection, params){
-    const Query=`
-    INSERT INTO ReviewComment(reviewId,userId,content)
-    VALUES(?,?,?);
-    `;
-  const [Result] = await connection.query(Query, params);
-  return Result;
-
-}
 // // 이메일로 회원 조회
 // async function selectUserEmail(connection, email) {
 //   const selectUserEmailQuery = `
@@ -217,14 +146,7 @@ async function postReviewCommentd(connection, params){
 // }
 
 module.exports = {
-  isKeepByUserIdd,
-  isKeeptoActivated,
-  isKeeptoDeleted,
-  postReviewd,
-  getReviewByRestIdd,
-  getReviewByUserIdd,
-  changeReviewTextd,
-  getReviewByIdd,
-  postReviewPhotod,
-  postReviewCommentd,
+  getUserbyIdd,
+  changePointd,
+  getPointbyUseridd,
 }
