@@ -35,10 +35,8 @@ exports.changePoint = async function(req,res){
         return res.send(errResponse(baseResponse.WRONG_USER_ID));
     }
     const params=[userId, changePoint, resId, resName];
-    const check2 = Provider.getPointbyUseridp(userId);
-    console.log(check2[0]);
-    console.log(parseInt(check2.remainPoint));
-    if(parseInt(check2.remainPoint)+parseInt(changePoint)<0){
+    const check2 = await Provider.getPointbyUseridp(userId);
+    if(parseInt(check2[0].remainPoint)+parseInt(changePoint)<0){
         return res.send(errResponse(baseResponse.REMAINPOINT_ERROR));
     }
     const result = await Service.changePoints(params);
