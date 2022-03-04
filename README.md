@@ -39,9 +39,23 @@ https://docs.google.com/spreadsheets/d/1V9mwjO7wMd5S9Q-OmQ8ZnYI_LHomyfDyDuBhNNlK
 5. 사용자별 주문내역조회 Api
 6. sms 인증 Api
 
-# 2월 넷쨰주
+# 2월 넷째주
 1. 주문완료 수정 Api
 2. 리뷰등록 Api
 3. 식당별 리뷰조회 Api
 4. 이메일 인증 Api
 5. 광고조회 Api
+
+# 3월 첫째주
+1. 리뷰텍스트 수정 Api
+2. 사용자별 리뷰조회 Api
+3. 리뷰 사진 등록 Api
+4. 리뷰 댓글 등록 Api
+5. 사용자별 포인트 수정 Api
+
+# 3월 둘쨰주
+1. 사용자별 포인트 조회 Api
+2. 사용자별 검색등록 Api
+3. 사용자별 검색기록조회 Api
+4. 특정 검색기록 삭제 Api
+5. 사용자별 전체검색기록 삭제 Api
