@@ -8,13 +8,13 @@ const regexEmail = require("regex-email");
 const axios = require("axios");
 const {emit} = require("nodemon");
 const crypto = require('crypto');
-const passport = require('passport'); 
-const KakaoStrategy = require('passport-kakao').Strategy; 
-const nodemailer = require('nodemailer'); 
-var accountSid = 'AC4ee04f92ba678ce4b14e0a37dc0fb3c2'; 
-var authToken = 'a46775e31b9b19ca8190d43cb5c9538c'; 
-var twilio = require('twilio'); 
-var client = new twilio(accountSid,authToken); 
+const passport = require('passport');
+const KakaoStrategy = require('passport-kakao').Strategy;
+const nodemailer = require('nodemailer');
+var accountSid = 'AC4ee04f92ba678ce4b14e0a37dc0fb3c2';
+var authToken = 'a46775e31b9b19ca8190d43cb5c9538c';
+var twilio = require('twilio');
+var client = new twilio(accountSid,authToken);
 
 var CryptoJS = require("crypto-js");
 var SHA256 = require("crypto-js/sha256");
@@ -24,64 +24,17 @@ const { SUCCESS } = require("../../../config/baseResponseStatus");
 /* Controller : Validation, query body path variables 핸들링. */
 
 
-
-
- 
-//사용자별  검색등록  API
-exports.postSearch = async function (req,res){
-    const userId = req.body.userId;
-    const searchText = req.body.searchText;
-    if(!userId||!searchText){
-        return res.sned(errResponse(baseResponse.WRONG_INPUT));
-    }
-    const check = await Provider.getUserbyId(userId);
-    if(check.length<1){
-        return res.send(errResponse(baseResponse.WRONG_USER_ID));
-    }
-    const params =[userId, searchText];
-    const result = await Service.postSearchs(params);
-    return res.send(result);
-}
-//사용자별 검색기록 조회 API
-exports.getSearchlistByUserid = async function (req,res){
+//사용자별 쿠폰 조회 API
+exports.getCouponByuserId = async function(req, res){
     const userId = req.query.userId;
     if(!userId){
         return res.send(errResponse(baseResponse.WRONG_INPUT));
     }
-    const result = await Provider.getSearchlistByUseridp(userId);
-    return res.send(response(baseResponse.SUCCESS, result));
-}
-//특정검색기록 삭제 API
-exports.deleteSearchlistbyId = async function (req,res){
-    const searchId = req.params.searchId;
-    if(!searchId){
-        return res.send(errResponse(baseResponse.WRONG_INPUT));
-    }
-    const check = await Provider.getSearchlistByid(searchId);
-    if(check.length<1){
-        return res.send(errResponse(baseResponse.WRONG_SEARCHLISTID));
-    }
-    const result = await Service.deleteSearchlistbyIds(searchId);
-    return res.send(result);
-}
-
-//사용자별 전체검색기록 삭제API
-exports.deleteSearchlistbyUserId = async function (req,res) {
-    const userId = req.query.userId;
-    if(!userId){
-        return res.send(errResponse(baseResponse.WRONG_INPUT));
-    }
-    const check = await Provider.getUserbyId(userId);
+    const check = await Provider.getUserById(userId);
     if(check.length<1){
         return res.send(errResponse(baseResponse.WRONG_USER_ID));
     }
-    const result = await Service.deleteSearchlistbyUserIds(userId);
-    return res.send(result);
-}
-
-//실시간 검색기록순위 조회 API
-exports.searchRank = async function (req,res){
-    const result = await Provider.searchRankp();
+    const result = await Provider.getCouponByuserIdp(userId);
     return res.send(response(baseResponse.SUCCESS, result));
 }
 

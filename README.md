@@ -59,3 +59,8 @@ https://docs.google.com/spreadsheets/d/1V9mwjO7wMd5S9Q-OmQ8ZnYI_LHomyfDyDuBhNNlK
 3. 사용자별 검색기록조회 Api
 4. 특정 검색기록 삭제 Api
 5. 사용자별 전체검색기록 삭제 Api
+
+# 3월 셋쨰주
+1. 실시간 검색기록순위 조회 Api
+2. 사용자별 쿠폰 조회 Api
+3. Api 명세서 작성

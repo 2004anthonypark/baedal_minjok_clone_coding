@@ -6,67 +6,22 @@ const { UserBindingContext } = require("twilio/lib/rest/chat/v2/service/user/use
 
 
 
-//사용자정보 가져오기
-async function getUserbyIdd(connection, userId){
-  const Query = `
-  Select id from User U where id=?;
+//사용자별 쿠폰 조회 API  
+async function getCouponByuserIdd(connection, userId){
+  const Query =`
+  SELECT * from UserCoupon where userId=? and status = 'activate';
   `;
-  const [Result] = await connection.query(Query, userId);
+  const [Result] = await connection.query(Query,userId);
   return Result;
 }
 
-//사용자별  검색등록  API
-async function postSearchd(connection, params){
-  const Query = `
-  Insert into Searchlist (userId, searchText)
-  Values(?,?);
-  `;
-  const [Result] = await connection.query(Query, params);
-  return Result;
-}
-//사용자별 검색기록 조회 API
-async function getSearchlistByUseridd(connection, userId){
-  const Query = `
-      Select id, searchText from Searchlist where userId=? and status = 'activate' group by searchText order by createdAt desc;
-  `;
-  const [Result] = await connection.query(Query, userId);
-  return Result;
-}
-
-//설치리스트가져오기 API
-async function getSearchlistByidd(connection, searchId){
-    const Query=`
-    Select * from Searchlist Where id = ? ;  
-  `;
-  const [Result] = await connection.query(Query, searchId);
-  return Result;
-}
-
-//특정검색기록 삭제 API
-async function deleteSearchlistbyIdd(connection, searchId){
+//특정유저조회
+async function getUserByIdd(connection, userId){
   const Query=`
- Update Searchlist set status='deleted' where id=?;
-`;
-const [Result] = await connection.query(Query, searchId);
+  SELECT * from User where id=?;
+  `;
+  const [Result] = await connection.query(Query,userId);
   return Result;
-}
-
-//사용자별 전체검색기록 삭제API
-async function deleteSearchlistbyUserIdd(connection, searchId){
-  const Query=`
- Update Searchlist set status='deleted' where userId=?;
-`;
-const [Result] = await connection.query(Query, searchId);
-  return Result;
-}
-
-////실시간 검색기록순위 조회 API
-async function searchRankd(connection){
-  const Query=`
-  Select searchText from Searchlist Group By searchText order by count(searchText) desc;
- `;
- const [Result] = await connection.query(Query);
-   return Result;
 }
 
 // // 이메일로 회원 조회
@@ -185,11 +140,7 @@ async function searchRankd(connection){
 // }
 
 module.exports = {
-  getUserbyIdd,
-  postSearchd,
-  getSearchlistByUseridd,
-  getSearchlistByidd,
-  deleteSearchlistbyIdd,
-  deleteSearchlistbyUserIdd,
-  searchRankd,
+  getCouponByuserIdd,
+  getUserByIdd,
+
 }

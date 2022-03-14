@@ -30,3 +30,11 @@ exports.getSearchlistByid = async function (searchId){
     connection.release();
     return result;
 }
+
+//실시간 검색기록순위 조회 API
+exports.searchRankp = async function (){
+    const connection = await pool.getConnection(async (conn) => conn);
+    const result = await Dao.searchRankd(connection);
+    connection.release();
+    return result;
+}

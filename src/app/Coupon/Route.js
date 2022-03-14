@@ -13,12 +13,8 @@ module.exports = function(app){
 
     
 
-   
-    app.post('/app/search-post',cont.postSearch);
-    app.get('/app/search',cont.getSearchlistByUserid);
-    app.patch('/app/search-delete/:searchId',cont.deleteSearchlistbyId);
-    app.patch('/app/seachall-delete',cont.deleteSearchlistbyUserId);
-    app.get('/app/search-rank',cont.searchRank);
+    app.get('/app/coupon',cont.getCouponByuserId);
+    
 };
 
 
