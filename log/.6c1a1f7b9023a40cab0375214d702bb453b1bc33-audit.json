@@ -21,9 +21,15 @@
             "hash": "7e071886c1a4f573f945862fa304d0e5"
         },
         {
+<<<<<<< HEAD
             "date": 1646390334886,
             "name": "log/2022-03-04-smart-push.log",
             "hash": "68b8a60505a33eba7c272d16cf228958"
+=======
+            "date": 1646383920974,
+            "name": "log/2022-03-04-smart-push.log",
+            "hash": "f05db8f9d7fc207f062aa6416ccc94c2"
+>>>>>>> 08a83f76dc0bb9a80d599b7f8990d78a76c0d65f
         }
     ]
 }
