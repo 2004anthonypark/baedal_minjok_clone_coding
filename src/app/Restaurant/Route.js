@@ -13,7 +13,7 @@ module.exports = function(app){
 
     app.get('/app/rest/keep/:userId',cont.getRestByUserId);
 
-    app.get('/app/rest/is-keep',cont.isKeepByUserId);
+   
 
     app.get('/app/rest/:restId', cont.getRestByRestId);
 

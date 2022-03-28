@@ -47,7 +47,7 @@ async function postReviewd(connection, params){
 //식당별 리뷰조회 API
 async function getReviewByRestIdd(connection, restId){
   const Query=`
-  Select * from Review R Where resId = ?;
+  Select R.id, R.text, R.reviewRate, R.orderId, R.reviewDate, R.userId, R.status from Review R Where resId = ?;
   `;
   const [Result] = await connection.query(Query, restId);
   return Result;

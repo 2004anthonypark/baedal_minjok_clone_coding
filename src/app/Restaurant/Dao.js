@@ -59,7 +59,7 @@ async function getCategoryByIdd(connection,categoryId) {
 //지역별 카테고리별 식당조회 Api
 async function getRestd(connection, params){
   const Query = `
-  Select * from Restaurant R
+  Select R.id, R.name, R.resStatus, R.priceAtleast, R.deliveryTime, R.deliveryTip from Restaurant R
    Inner Join CategoryRest CR on CR.categoryId = ?
    Inner Join RegionRest RR on RR.regionId = ? AND RR.resId= CR.resId
 Where CR.resId = R.id;

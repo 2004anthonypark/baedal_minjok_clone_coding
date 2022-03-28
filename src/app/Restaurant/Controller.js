@@ -32,17 +32,7 @@ exports.getRestByUserId = async function (req, res) {
 };
 
 
-//사용자별 식당별 찜여부 조회
-exports.isKeepByUserId = async function (req,res){
-    const userId = req.query.userId;
-    const restId = req.query.restId;
-    if(!userId||!restId){
-        return res.send(errResponse(baseResponse.WRONG_INPUT));
-    }
-    const params = [userId, restId];
-    const result = await Provider.isKeepByUserIdp(params);
-    return res.send(response(baseResponse.SUCCESS, result));
-}
+
  
 
 //특정식당조회 api

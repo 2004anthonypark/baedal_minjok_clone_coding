@@ -32,7 +32,7 @@ exports.postReview = async function (req,res){
     const {text, reviewRate, orderId, reviewDate, userId, resId} = req.body;
     const params = [text, reviewRate, orderId, reviewDate, userId, resId];
     const result = await Service.postReviews(params);
-    return res.send(response(baseResponse.SUCCESS, result));
+    return res.send(result);
 }
  
 //식당별 리뷰조회 API

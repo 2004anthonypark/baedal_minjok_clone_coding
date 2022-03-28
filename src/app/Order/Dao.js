@@ -19,7 +19,7 @@ Values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
 // 사용자별 주문내역조회 APi
 async function getOrderByUserIdd(connection,userId){
   const Query =`
-  Select * from Orders 
+  Select O.id, O.status, O.totalCost, O.resId, O.deliveryStatus, O.resName from Orders O
   where userId = ?;
   `;
   const [result] = await connection.query(Query, userId);

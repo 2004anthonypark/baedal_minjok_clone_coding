@@ -24,7 +24,6 @@ const { SUCCESS } = require("../../../config/baseResponseStatus");
 /* Controller : Validation, query body path variables 핸들링. */
 
 
-
 //사용자별 식당별 찜여부 수정
 exports.isKeep = async function (req,res){
     const userId = req.query.userId;
@@ -34,7 +33,7 @@ exports.isKeep = async function (req,res){
     }
     const params = [userId, restId];
     const result = await Service.isKeeps(params);
-    return res.send(response(baseResponse.SUCCESS, result));
+    return res.send(result);
 }
  
 
