@@ -3,13 +3,24 @@ const { UserBindingContext } = require("twilio/lib/rest/chat/v2/service/user/use
 /* Dao : Query (in mysql) 실행 */
 
 
+//쿠폰아이디 가져오기
+async function getCouponByIdd(connection, couponId){
+  const Query = `select * from Coupon where id=?;`;
+  const [result] = await connection.query(Query, couponId);
+  return result;
+}
 
+async function changeCouponByUserIdd(connection, params){
+  const Query = `INSERT INTO CouponUser(userId,couponId) VALUES(?,?);`;
+  const [result] = await connection.query(Query, params);
+  return result;
+}
 
 
 //사용자별 쿠폰 조회 API  
 async function getCouponByuserIdd(connection, userId){
   const Query =`
-  SELECT * from UserCoupon where userId=? and status = 'activate';
+  SELECT C.id, C.status, C.couponStartdate, C.couponFinishdate, C.couponId from UserCoupon C where userId=? and status = 'activate';
   `;
   const [Result] = await connection.query(Query,userId);
   return Result;
@@ -142,5 +153,7 @@ async function getUserByIdd(connection, userId){
 module.exports = {
   getCouponByuserIdd,
   getUserByIdd,
+  getCouponByIdd,
+  changeCouponByUserIdd,
 
 }

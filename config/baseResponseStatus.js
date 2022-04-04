@@ -72,5 +72,6 @@ module.exports = {
     REMAINPOINT_ERROR: {"isSuccess" : false, "code": 5010, "message": "포인트 부족"},
 
     WRONG_SEARCHLISTID: {"isSuccess" : false, "code": 5011, "message": "잘못된 검색기록아이디"},
+    WRONG_Coupon_ID : {"isSuccess" : false, "code": 5012, "message": "잘못된 쿠폰아이디"},
 
 }

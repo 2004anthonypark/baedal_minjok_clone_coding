@@ -14,8 +14,10 @@ module.exports = function(app){
     
 
     app.get('/app/coupon',cont.getCouponByuserId);
+    app.post('/app/coupon-change',cont.changeCouponByuserId)
     
 };
+
 
 
 // TODO: 자동로그인 API (JWT 검증 및 Payload 내뱉기)

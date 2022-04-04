@@ -13,6 +13,15 @@ exports.getCouponByuserIdp = async function (userId){
     connection.release();
     return result;
 }
+
+//쿠폰 아이디 가져오기
+exports.getCouponById = async function (couponId){
+    const connection = await pool.getConnection(async (conn) => conn);
+    const result = await Dao.getCouponByIdd(connection, couponId);
+    connection.release();
+    return result;
+}
+
 //특정유저조회
 exports.getUserById = async function (userId){
     const connection = await pool.getConnection(async (conn) => conn);

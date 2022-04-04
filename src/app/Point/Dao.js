@@ -13,6 +13,8 @@ async function getUserbyIdd(connection, userId){
   return result;
 }
 
+
+
 // 사용자별 포인트 수정 API
 async function changePointd(connection, params){
   const Query = `INSERT INTO Point(userId, changePoint, resId, resName) VALUES(?,?,?,?);`;

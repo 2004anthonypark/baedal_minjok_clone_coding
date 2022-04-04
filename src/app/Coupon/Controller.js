@@ -20,6 +20,7 @@ var CryptoJS = require("crypto-js");
 var SHA256 = require("crypto-js/sha256");
 var Base64 = require("crypto-js/enc-base64");
 const { SUCCESS } = require("../../../config/baseResponseStatus");
+const { process_params } = require("express/lib/router");
 
 /* Controller : Validation, query body path variables 핸들링. */
 
@@ -36,6 +37,25 @@ exports.getCouponByuserId = async function(req, res){
     }
     const result = await Provider.getCouponByuserIdp(userId);
     return res.send(response(baseResponse.SUCCESS, result));
+}
+
+//사용자별 쿠폰정보 변경 API
+exports.changeCouponByuserId = async function(req,res){
+    const {userId,couponId} = req.body;
+    if(!userId||!couponId){
+        return res.send(errResponse(baseResponse.WRONG_INPUT));
+    }
+    const check = await Provider.getUserById(userId);
+    if(check.length<1){
+        return res.send(errResponse(baseResponse.WRONG_USER_ID));
+    }
+    const check2 = await Provider.getCouponById(couponId);
+    if(check2.length<1){
+        return res.send(errResponse(baseResponse.WRONG_Coupon_ID));
+    }
+    const params = [userId, couponId];
+    const result = await Service.changeCouponByUserIds(params);
+    return res.send(result);
 }
 
 // /**
