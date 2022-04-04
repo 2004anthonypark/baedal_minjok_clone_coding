@@ -39,7 +39,7 @@ exports.getCouponByuserId = async function(req, res){
     return res.send(response(baseResponse.SUCCESS, result));
 }
 
-//사용자별 쿠폰정보 변경 API
+//사용자별 쿠폰등록 API
 exports.changeCouponByuserId = async function(req,res){
     const {userId,couponId} = req.body;
     if(!userId||!couponId){

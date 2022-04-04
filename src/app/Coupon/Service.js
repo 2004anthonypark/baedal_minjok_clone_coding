@@ -42,7 +42,7 @@ exports.isKeeps = async function (params){
 
 
 
-//사용자별 쿠폰정보 변경 API
+//사용자별 쿠폰등록 API
 exports.changeCouponByUserIds = async function (params){
     const connection = await pool.getConnection(async (conn) => conn);
     connection.release();

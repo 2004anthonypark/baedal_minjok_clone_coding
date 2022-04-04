@@ -10,6 +10,7 @@ async function getCouponByIdd(connection, couponId){
   return result;
 }
 
+// 사용자별 쿠폰 등록 API
 async function changeCouponByUserIdd(connection, params){
   const Query = `INSERT INTO CouponUser(userId,couponId) VALUES(?,?);`;
   const [result] = await connection.query(Query, params);
