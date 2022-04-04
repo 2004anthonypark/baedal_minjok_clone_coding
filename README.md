@@ -63,4 +63,8 @@ https://docs.google.com/spreadsheets/d/1V9mwjO7wMd5S9Q-OmQ8ZnYI_LHomyfDyDuBhNNlK
 # 3월 셋쨰주
 1. 실시간 검색기록순위 조회 Api
 2. 사용자별 쿠폰 조회 Api
-3. Api 명세서 작성
+3. 사용자별 쿠폰 등록 Api
+4. Api 명세서 작성
+
+# 3월 넷째주 ~ 4월 첫째주
+1. Api 명세서 작성
