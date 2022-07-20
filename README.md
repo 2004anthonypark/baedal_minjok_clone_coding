@@ -3,11 +3,14 @@
 ## API 명세서:
 https://docs.google.com/spreadsheets/d/1V9mwjO7wMd5S9Q-OmQ8ZnYI_LHomyfDyDuBhNNlKTMk/edit#gid=1798305458
 
-## Server : using AWS EC2, Nodejs, Ngnix
+# Server : using AWS EC2, Nodejs, Ngnix
 ## Database : using AWS RDS (MYSQL)
 
 
-## 개발일지
+
+
+
+# 개발일지
 
 # 1월 1째주 
 1. AWS 서버 구축 및 nginx 설치
